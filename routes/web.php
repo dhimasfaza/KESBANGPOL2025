@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\GaleriController;
@@ -596,3 +597,8 @@ Route::get('/jumlah-potensi-konflik', [LandingpagePotensiKonflikController::clas
 Route::get('/maintenance', function () {
     return view('landingpage.pelayanan.maintenance');
 })->name('maintenance');
+
+
+Route::get('/pemilu', [ElectionController::class, 'index'])->name('pemilu.index');
+Route::get('/pemilu/{kategori}', [ElectionController::class, 'show'])->name('pemilu.show');
+Route::get('/pemilu/{kategori}/{id}', [ElectionController::class, 'detail'])->name('pemilu.detail');
