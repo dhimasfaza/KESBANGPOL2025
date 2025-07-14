@@ -62,14 +62,17 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#">Mitra</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">FORKOPIMDA</a></li>
-            <li><a class="dropdown-item" href="#">KPU</a></li>
-            <li><a class="dropdown-item" href="#">BAWASLU</a></li>
-            <li><a class="dropdown-item" href="#">BNN</a></li>
-            <li><a class="dropdown-item" href="#">Partai Politik</a></li>
-            <li><a class="dropdown-item" href="#">FKDM</a></li>
-            <li><a class="dropdown-item" href="#">FKUB</a></li>
-            <li><a class="dropdown-item" href="#">FPK</a></li>
+            <li>
+                <a class="dropdown-item" href="{{ route('tampilmitra') }}">Semua Mitra</a>
+            </li>
+             <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'forkopimda']) }}">FORKOPIMDA</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'kpu']) }}">KPU</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'bawaslu']) }}">BAWASLU</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'bnn']) }}">BNN</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'partai-politik']) }}">Partai Politik</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'fkdm']) }}">FKDM</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'fkub']) }}">FKUB</a></li>
+            <li><a class="dropdown-item" href="{{ route('mitra.detail', ['kategori' => 'fpk']) }}">FPK</a></li>
           </ul>
         </li>
 
