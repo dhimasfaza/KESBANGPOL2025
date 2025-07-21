@@ -1,0 +1,92 @@
+@extends('dashboard.layouts.app')
+
+@section('content')
+<div class="container-fluid">
+    {{-- Bagian Judul Utama dan Tombol Tambah --}}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="m-0">Manajemen Walikota</h3>
+        <a href="{{ route('walikota.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-1"></i> Tambah Paslon Baru
+        </a>
+    </div>
+
+    {{-- Notifikasi Sukses --}}
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    {{-- Kondisi Utama untuk Menampilkan Tabel atau Pesan Kosong --}}
+    @if($paslons->isNotEmpty())
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Daftar Pasangan Calon Wali Kota</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">No Urut</th>
+                                <th>Foto</th>
+                                <th>Calon Wali Kota </th>
+                                <th>Calon Wakil Wali Kota</th>
+                                <th>Partai Pengusung</th>
+                                <th style="width: 150px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($paslons as $paslon)
+                            <tr>
+                                <td class="text-center"><h4>{{ $paslon->no_urut }}</h4></td>
+                                <td>
+                                    {{-- PERBAIKAN: Cek setiap foto secara terpisah --}}
+                                   @if($paslon->capres_foto)
+                                        <img src="{{ asset('storage/' . $paslon->capres_foto) }}" alt="Foto capres" width="70" class="img-thumbnail mb-1">
+                                    @endif
+                                    
+                                    @if($paslon->cawapres_foto)
+                                        <img src="{{ asset('storage/' . $paslon->cawapres_foto) }}" alt="Foto cawapres" width="70" class="img-thumbnail">
+                                    @endif
+                                </td>
+                                <td>{{ $paslon->capres_nama }}</td>
+                                <td>{{ $paslon->cawapres_nama }}</td>
+                                <td>{{ $paslon->partai_pengusung }}</td>
+                                <td>
+                                    <a href="{{ route('walikota.show', $paslon->id) }}" class="btn btn-sm btn-info" title="Detail"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('walikota.edit', $paslon->id) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <form action="{{ route('walikota.destroy', $paslon->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    @else
+        {{-- Tampilan jika tidak ada data --}}
+        <div class="card">
+            <div class="card-body text-center p-5">
+                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+                <h5 class="text-muted">Belum Ada Data Pasangan Calon</h5>
+                <p class="text-muted">Silakan tambahkan data baru melalui tombol "Tambah Paslon Baru" di pojok kanan atas.</p>
+            </div>
+        </div>
+
+    @endif
+</div>
+@endsection
+
+@push('styles')
+<style>
+    .main-wrapper .dashboard-content {
+        padding-top: 1rem !important;
+    }
+</style>
+@endpush
